@@ -54,9 +54,14 @@ function createBaseParser(execlib) {
     }
   };
   BaseParser.prototype.postProcessFileToData = function (dataobj) {
+    var _do = this.finalPackFileToDataItem(dataobj);
     if (this.mapping) {
-      lib.traverseShallow(dataobj, this.doRemap.bind(this, dataobj));
+      lib.traverseShallow(dataobj, this.doRemap.bind(this, _do));
     }
+    return _do;
+  };
+  BaseParser.prototype.finalPackFileToDataItem = function (dataobj) {
+    return dataobj;
   };
   BaseParser.prototype.doRemap = function (dataobj, dataitem, dataitemname) {
     var mappingmap, mappingresult;
