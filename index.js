@@ -1,5 +1,5 @@
 function createLib(execlib) {
-  return execlib.loadDependencies('client', ['allex:directory:lib'], createBaseParser.bind(null, execlib));
+  return execlib.loadDependencies('client', ['allex_directorylib'], createBaseParser.bind(null, execlib));
 }
 
 function createBaseParser(execlib) {
