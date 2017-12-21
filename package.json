@@ -1,6 +1,6 @@
 {
   "name": "allex_baseparser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AllexJS parser of a text file with fixed number of chars per row",
   "main": "index.js",
   "scripts": {

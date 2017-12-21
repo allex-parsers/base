@@ -23,9 +23,13 @@ function createBaseParser(execlib) {
     this.mapping = {};
     this.whitelist = options.whitelist;
     this.blacklist = options.blacklist;
+    this.skipfirst = parseInt(options.skipfirst) || 0;
+    this.inreccount = 0;
     this.buildMapping(options);
   }
   BaseParser.prototype.destroy = function () {
+    this.inreccount = 0;
+    this.skipfirst = null;
     this.blacklist = null;
     this.whitelist = null;
     lib.objDestroyAll(this.mapping);
@@ -58,7 +62,15 @@ function createBaseParser(execlib) {
     }
   };
   BaseParser.prototype.postProcessFileToData = function (dataobj) {
-    var _do = this.finalPackFileToDataItem(dataobj);
+    var _do;
+    if (null === this.inreccount) {
+      return null;
+    }
+    this.inreccount++;
+    if (this.skipfirst >= this.inreccount) {
+      return null;
+    }
+    _do = this.finalPackFileToDataItem(dataobj);
     if (this.mapping) {
       lib.traverseShallow(dataobj, this.doRemap.bind(this, _do));
     }
